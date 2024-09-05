@@ -11,13 +11,21 @@ IMG_WIDTH = 224
 # Load your trained model (ensure you have uploaded your model file)
 model = tf.keras.models.load_model('dinosaur_classification_model_latestupdated.h5')
 
+# List of class names (you should replace this with the actual class names used in your model)
+class_names = ['species1', 'species2', 'species3', 'species4', 'species5']  # Add the correct species names here
+
 # Function to predict image
 def predict_image(image):
     img = image.resize((IMG_HEIGHT, IMG_WIDTH))  # Resize the uploaded image
     img_array = img_to_array(img)
-    img_array = np.expand_dims(img_array, axis=0) / 255.0  # Normalize
+    img_array = np.expand_dims(img_array, axis=0) / 255.0  # Normalize the image to [0, 1]
+    
     predictions = model.predict(img_array)
-    return predictions
+    predicted_class_index = np.argmax(predictions)  # Get the index of the class with the highest prediction
+    predicted_class = class_names[predicted_class_index]  # Get the class name
+    confidence = np.max(predictions)  # Get the confidence of the prediction
+    
+    return predicted_class, confidence
 
 # Streamlit app
 st.title('Dinosaur Species Classifying App')
@@ -29,8 +37,9 @@ if uploaded_file is not None:
     image = Image.open(uploaded_file)  # Use PIL to open the image from the BytesIO object
     st.image(image, caption='Uploaded Image.', use_column_width=True)
     st.write("Classifying...")
-    
+
     # Call the predict function with the image object
-    label = predict_image(image)
-    
-    st.write(f'Prediction: {label}')
+    predicted_class, confidence = predict_image(image)
+
+    # Display the predicted class and confidence
+    st.write(f'Prediction: {predicted_class} with {confidence * 100:.2f}% confidence.')
