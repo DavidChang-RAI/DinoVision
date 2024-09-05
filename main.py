@@ -9,7 +9,7 @@ IMG_HEIGHT = 224
 IMG_WIDTH = 224
 
 # Load your trained model (ensure you have uploaded your model file)
-model = tf.keras.models.load_model('dinovision/dinosaur_classification_model_latestupdated.h5')
+model = tf.keras.models.load_model('dinosaur_classification_model_latestupdated.h5')
 
 # List of actual class names (dinosaur species)
 class_names = [
