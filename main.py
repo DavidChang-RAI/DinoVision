@@ -26,6 +26,10 @@ class_names = [
 
 # Function to predict image
 def predict_image(image):
+    # Convert the image to RGB if it has an alpha channel (transparency)
+    if image.mode != 'RGB':
+        image = image.convert('RGB')
+    
     img = image.resize((IMG_HEIGHT, IMG_WIDTH))  # Resize the uploaded image
     img_array = img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0) / 255.0  # Normalize the image to [0, 1]
@@ -52,4 +56,3 @@ if uploaded_file is not None:
 
     # Display the predicted class (species name)
     st.write(f'Prediction: {predicted_class}')
-
