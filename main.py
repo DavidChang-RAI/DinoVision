@@ -9,10 +9,20 @@ IMG_HEIGHT = 224
 IMG_WIDTH = 224
 
 # Load your trained model (ensure you have uploaded your model file)
-model = tf.keras.models.load_model('dinosaur_classification_model_latestupdated.h5')
+model = tf.keras.models.load_model('dinovision/dinosaur_classification_model_latestupdated.h5')
 
-# List of class names (you should replace this with the actual class names used in your model)
-class_names = ['species1', 'species2', 'species3', 'species4', 'species5']  # Add the correct species names here
+# List of actual class names (dinosaur species)
+class_names = [
+    'Allosaurus', 'Dilophosaurus', 'Mamenchisaurus', 'Pachyrhinosaurus', 'Stygimoloch',
+    'Ankylosaurus', 'Dimetrodon', 'Microceratus', 'Parasaurolophus', 'Suchomimus',
+    'Apatosaurus', 'Dimorphodon', 'Monolophosaurus', 'Pteranodon', 'Tarbosaurus',
+    'Baryonyx', 'Dreadnoughtus', 'Mosasaurus', 'Pyroraptor', 'Therizinosaurus',
+    'Brachiosaurus', 'Gallimimus', 'Nasutoceratops', 'Quetzalcoatlus', 'Triceratops',
+    'Carnotaurus', 'Giganotosaurus', 'Nothosaurus', 'Sinoceratops', 'Tyrannosaurus rex',
+    'Ceratosaurus', 'Iguanodon', 'Ouranosaurus', 'Smilodon', 'Velociraptor',
+    'Compsognathus', 'Kentrosaurus', 'Oviraptor', 'Spinosaurus',
+    'Corythosaurus', 'Lystrosaurus', 'Pachycephalosaurus', 'Stegosaurus'
+]
 
 # Function to predict image
 def predict_image(image):
