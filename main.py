@@ -9,7 +9,7 @@ IMG_HEIGHT = 224
 IMG_WIDTH = 224
 
 # Load your trained model (ensure you have uploaded your model file)
-model = tf.keras.models.load_model('dinosaur_classification_model_latestupdated.h5')
+model = tf.keras.models.load_model('dinovision/dinosaur_classification_model_latestupdated.h5')
 
 # List of actual class names (dinosaur species)
 class_names = [
@@ -33,9 +33,8 @@ def predict_image(image):
     predictions = model.predict(img_array)
     predicted_class_index = np.argmax(predictions)  # Get the index of the class with the highest prediction
     predicted_class = class_names[predicted_class_index]  # Get the class name
-    confidence = np.max(predictions)  # Get the confidence of the prediction
     
-    return predicted_class, confidence
+    return predicted_class
 
 # Streamlit app
 st.title('Dinosaur Species Classifying App')
@@ -49,7 +48,8 @@ if uploaded_file is not None:
     st.write("Classifying...")
 
     # Call the predict function with the image object
-    predicted_class, confidence = predict_image(image)
+    predicted_class = predict_image(image)
 
-    # Display the predicted class and confidence
-    st.write(f'Prediction: {predicted_class} with {confidence * 100:.2f}% confidence.')
+    # Display the predicted class (species name)
+    st.write(f'Prediction: {predicted_class}')
+
