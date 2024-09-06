@@ -5,8 +5,8 @@ import numpy as np
 from PIL import Image
 
 # Define constants
-IMG_HEIGHT = 224
-IMG_WIDTH = 224
+IMG_HEIGHT = 150
+IMG_WIDTH = 150
 
 # Load your trained model (ensure you have uploaded your model file)
 model = tf.keras.models.load_model('dinosaur_classification_model_latestupdated.h5')
