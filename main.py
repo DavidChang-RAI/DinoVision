@@ -32,6 +32,7 @@ def predict_image(image):
     
     img = image.resize((IMG_HEIGHT, IMG_WIDTH))  # Resize the uploaded image
     img_array = img_to_array(img)
+    print(img_array)
     img_array = np.expand_dims(img_array, axis=0) / 255.0  # Normalize the image to [0, 1]
     
     predictions = model.predict(img_array)
