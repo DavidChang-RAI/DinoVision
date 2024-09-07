@@ -32,7 +32,6 @@ def predict_image(image):
     
     img = image.resize((IMG_HEIGHT, IMG_WIDTH))  # Resize the uploaded image
     img_array = img_to_array(img)
-    print(img_array)
     img_array = np.expand_dims(img_array, axis=0) / 255.0  # Normalize the image to [0, 1]
     
     predictions = model.predict(img_array)
@@ -41,19 +40,55 @@ def predict_image(image):
     
     return predicted_class
 
-# Streamlit app
-st.title('Dinosaur Species Classifying App')
+# Streamlit app UI design
+st.markdown(
+    """
+    <style>
+    .main {
+        background-color: #f0f0f0;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+    }
+    .title {
+        font-size: 48px;
+        color: #2c3e50;
+        font-weight: bold;
+        text-align: center;
+    }
+    .subtitle {
+        font-size: 20px;
+        color: #2980b9;
+        text-align: center;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
-# Allow all image types by not restricting the file type
-uploaded_file = st.file_uploader("Choose an image...", type=["png", "jpg", "jpeg", "bmp", "gif", "tiff"])
+# Title and subtitle
+st.markdown('<div class="title">🦕 Dinosaur Classifier</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitle">Upload an image of a dinosaur and find out its species!</div>', unsafe_allow_html=True)
+
+# File uploader with enhanced UI
+uploaded_file = st.file_uploader("Upload a Dinosaur Image (PNG, JPG, JPEG, BMP, GIF, TIFF)", type=["png", "jpg", "jpeg", "bmp", "gif", "tiff"])
+
+# Side-by-side layout for better spacing
+col1, col2 = st.columns(2)
 
 if uploaded_file is not None:
-    image = Image.open(uploaded_file)  # Use PIL to open the image from the BytesIO object
-    st.image(image, caption='Uploaded Image.', use_column_width=True)
-    st.write("Classifying...")
-
-    # Call the predict function with the image object
-    predicted_class = predict_image(image)
-
-    # Display the predicted class (species name)
-    st.write(f'Prediction: {predicted_class}')
+    with col1:
+        image = Image.open(uploaded_file)
+        st.image(image, caption='Your Uploaded Image', use_column_width=True)
+        
+    with col2:
+        st.write("🦖 Classifying... Please wait.")
+        with st.spinner("Analyzing the image..."):
+            predicted_class = predict_image(image)
+        
+        # Display the result with some styling
+        st.success(f'**Prediction:** {predicted_class}')
+        
+        # Add a progress bar for a more interactive experience
+        progress_bar = st.progress(0)
+        for i in range(100):
+            progress_bar.progress(i + 1)
+else:
+    st.write("Upload an image to start the classification.")
