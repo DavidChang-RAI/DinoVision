@@ -67,8 +67,6 @@ st.markdown(
 st.markdown('<div class="title">🦕 DinoVision</div>', unsafe_allow_html=True)
 
 
-# File uploader with enhanced UI
-uploaded_file = st.file_uploader("Upload a Dinosaur Image (PNG, JPG, JPEG, BMP, GIF, TIFF)", type=["png", "jpg", "jpeg", "bmp", "gif", "tiff"])
 
 # Side-by-side layout for better spacing
 col1, col2 = st.columns(2)
