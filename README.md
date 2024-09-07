@@ -2,7 +2,7 @@
 
 ### Contributors:
 - **Zin Lynn Thant**
-- **Hein Htet Aung**
+- **Hein Htet Aung (david chang)**
 
 ### Supervisor:
 - **Tr. Cynthia**
